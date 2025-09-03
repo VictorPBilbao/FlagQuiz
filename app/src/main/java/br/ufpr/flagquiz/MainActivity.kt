@@ -1,6 +1,9 @@
 package br.ufpr.flagquiz
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -16,5 +19,20 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    fun StartGame(view: View) {
+        val usernameInput = findViewById<EditText>(R.id.username)
+        val username = usernameInput.text?.toString()?.trim() ?: ""
+
+        if (username.isBlank()) {
+            usernameInput.error = "Informe seu nome"
+            usernameInput.requestFocus()
+            return
+        }
+
+        val intent = Intent(this, Game::class.java)
+        intent.putExtra("username", username)
+        startActivity(intent)
     }
 }
